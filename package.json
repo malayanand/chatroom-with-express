@@ -1,0 +1,25 @@
+{
+  "name": "chitchat",
+  "version": "1.0.0",
+  "description": "Real time chat applications with rooms",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [
+    "Chatroom",
+    "online",
+    "chat"
+  ],
+  "author": "Malay Anand",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
