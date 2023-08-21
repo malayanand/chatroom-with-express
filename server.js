@@ -27,6 +27,12 @@ io.on('connection', socket => {
         // Broadcast when a user connects
         socket.broadcast.to(user.room).emit('message', messageObject(bot, `${user.username} user joined the room`));    // use to broadcast to everyone in room except the user
         // io.emit(); -> use to broadcast message to eveyone
+        
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
+        });
     });
 
     // Listen for chat message
@@ -40,18 +46,18 @@ io.on('connection', socket => {
     // Runs when client disconnects
     socket.on('disconnect', () => {
         const user = userLeave(socket.id);
-        console.log(user.room);
-              
         if (user) {
             io.to(user.room).emit('message', messageObject(bot,`${user.username} has left the room`));            
         }
         
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
+        });
     });
-
 });
 
 const PORT = 3000 || process.env.PORT;
 
-server.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
-});
+server.listen(PORT, () => console.log(`Server running on ${PORT}`));
